@@ -45,14 +45,14 @@ jobs:
       #     echo "This job is forced to fail."
       #     exit 1  # Force the job to fail every time
       
-  job4:
+  ChangeRequest:
      name: Change Request
      if: always()
      needs: job2
      runs-on: ubuntu-latest
      steps:     
       - name: ServiceNow DevOps Change Attributes
-        uses: ServiceNow/servicenow-devops-change@v5.1.0
+        uses: ServiceNow/servicenow-devops-change@dev
         with:
           # devops-integration-user-name: ${{ secrets.SN_DEVOPS_USER }}
           # devops-integration-user-password: ${{ secrets.SN_DEVOPS_PASSWORD }}
@@ -72,7 +72,7 @@ jobs:
     name: Job 5 (Always Skipped)
     runs-on: ubuntu-latest
     if: false  # This ensures the job is always skipped
-    needs: job4
+    needs: ChangeRequest
     steps:
       - name: Step 1 in Job 5
         run: echo "This should not run"
@@ -81,7 +81,7 @@ jobs:
     name: Job 6 (Always Skipped)
     runs-on: ubuntu-latest
     if: false  # This ensures the job is always skipped
-    needs: job4
+    needs: ChangeRequest
     steps:
       - name: Step 1 in Job 6
         run: echo "This should not run"
