@@ -114,7 +114,7 @@ jobs:
   job12:
     name: Job 12
     runs-on: ubuntu-latest
-    if: ${{ !cancelled() }}
+    if: ${{ cancelled() }}
     needs: job11  # Job 12 depends on job11
     steps:
       - name: Step 1 in Job 12
