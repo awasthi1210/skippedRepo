@@ -27,7 +27,7 @@ jobs:
     name: Job 3 (Always Skipped)
     runs-on: ubuntu-latest
     if: false  # This ensures the job is always skipped
-    needs: job1
+    needs: job2
     steps:
       - name: Step 1 in Job 3
         run: echo "This should not run"
@@ -48,7 +48,7 @@ jobs:
   ChangeRequest:
      name: Change Request
      if: always()
-     needs: job2
+     needs: job3
      runs-on: ubuntu-latest
      steps:     
       - name: ServiceNow DevOps Change Attributes
@@ -81,7 +81,7 @@ jobs:
     name: Job 6 (Always Skipped)
     runs-on: ubuntu-latest
     if: false  # This ensures the job is always skipped
-    needs: ChangeRequest
+    needs: job5
     steps:
       - name: Step 1 in Job 6
         run: echo "This should not run"
@@ -119,7 +119,7 @@ jobs:
     name: Job 10 (Always Skipped)
     runs-on: ubuntu-latest
     if: false  # This ensures the job is always skipped
-    needs: job8
+    needs: job9
     steps:
       - name: Step 1 in Job 10
         run: echo "This should not run"
@@ -128,7 +128,7 @@ jobs:
   job11:
     name: Job 11
     runs-on: ubuntu-latest
-    needs: job9  # Job 11 depends on job9 and job10
+    needs: job10  # Job 11 depends on job9 and job10
     steps:
       - name: Step 1 in Job 11
         run: echo "Running Job 11 after job9 and job10"
