@@ -137,10 +137,11 @@ jobs:
     name: Job 12
     runs-on: ubuntu-latest
     # if: ${{ cancelled() }}
-    if: ${{ secrets.SKIPPED }}
-    needs: job11  # Job 12 depends on job11
     steps:
-      - name: Step 1 in Job 12
-        run: echo "Running Job 12 after job11"
-      - name: Step 1 in Job 4 - Waiting for 30 seconds
-        run: echo "Waiting for 30 seconds..." && sleep 60
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Run conditional step
+        if: ${{ secrets.MY_VARIABLE == 'false' }}  # Will run only if MY_VARIABLE is 'false'
+        run: |
+          echo "This step runs only if MY_VARIABLE is false"
