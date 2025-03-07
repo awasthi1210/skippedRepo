@@ -72,7 +72,7 @@ jobs:
     name: Job 5 (Always Skipped)
     runs-on: ubuntu-latest
     if: false  # This ensures the job is always skipped
-    needs: ChangeRequest
+    needs: job4
     steps:
       - name: Step 1 in Job 5
         run: echo "This should not run"
