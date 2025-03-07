@@ -136,6 +136,7 @@ jobs:
   job12:
     name: Job 12
     runs-on: ubuntu-latest
+    needs: job11
     # if: ${{ cancelled() }}
     steps:
       - name: Checkout code
