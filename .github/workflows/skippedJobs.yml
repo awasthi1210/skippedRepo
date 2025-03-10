@@ -136,7 +136,8 @@ jobs:
   job12:
     name: Job 12
     runs-on: ubuntu-latest
-    if: always()  # Ensures job runs even if others fail
+    needs: job11
+    if: always() || needs.job11.result == 'skipped'  # Runs even if job11 is skipped
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
