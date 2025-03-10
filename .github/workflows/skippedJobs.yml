@@ -136,6 +136,7 @@ jobs:
   job12:
     name: Job 12
     runs-on: ubuntu-latest
+    if: ${{ vars.MY_VARIABLE == false }}
     needs: job11
     env:
       MY_VARIABLE: false  # Ensure it's set
@@ -145,6 +146,6 @@ jobs:
         env:
           MY_VARIABLE: ${{ vars.MY_VARIABLE }}
 
-      - name: Run conditional step
-        if: ${{ vars.MY_VARIABLE == false }} # Ensure it's a string
-        run: echo "This step runs only if MY_VARIABLE is false"
+      # - name: Run conditional step
+      #   if: ${{ vars.MY_VARIABLE == false }} # Ensure it's a string
+      #   run: echo "This step runs only if MY_VARIABLE is false"
