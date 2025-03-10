@@ -143,6 +143,6 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Run conditional step
-        if: ${{ env.MY_VARIABLE == 'false' }}  # Will run only if MY_VARIABLE is 'false'
+        if: ${{ env.MY_VARIABLE == false }}  # Will run only if MY_VARIABLE is 'false'
         run: |
           echo "This step runs only if MY_VARIABLE is false"
