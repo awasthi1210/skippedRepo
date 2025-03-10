@@ -139,9 +139,6 @@ jobs:
     needs: job11
     if: always() || needs.job11.result == 'skipped'  # Runs even if job11 is skipped
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
       - name: Run conditional step
         if: ${{ env.MY_VARIABLE == 'false' }}
         run: echo "This step runs only if MY_VARIABLE is false"
