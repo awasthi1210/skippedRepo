@@ -143,8 +143,8 @@ jobs:
       - name: Debug MY_VARIABLE
         run: echo "MY_VARIABLE is $MY_VARIABLE"
         env:
-          MY_VARIABLE: ${{ env.MY_VARIABLE }}
+          MY_VARIABLE: ${{ vars.MY_VARIABLE }}
 
       - name: Run conditional step
-        if: ${{ env.MY_VARIABLE == 'false' }}  # Ensure it's a string
+        if: ${{ vars.MY_VARIABLE == 'false' }} # Ensure it's a string
         run: echo "This step runs only if MY_VARIABLE is false"
