@@ -32,23 +32,23 @@ jobs:
       - name: Step 1 in Job 3
         run: echo "This should not run"
 
-  job4:
-    name: Job 4
-    runs-on: ubuntu-latest
-    needs: job2  # Job 4 depends on Job 2 and Job 3, running them in parallel
-    if: ${{ always() }}  # Ensures that job4 runs no matter what happens with job2 and job3
-    steps:
-      - name: Step 1 in Job 4 - Waiting for 30 seconds
-        run: echo "Waiting for 30 seconds..." && sleep 60
-      - name: Step 2 in Job 4 - Always Fail
-        run: |
-          echo "This job is forced to fail."
-          exit 1  # Force the job to fail every time
+  # job4:
+  #   name: Job 4
+  #   runs-on: ubuntu-latest
+  #   needs: job2  # Job 4 depends on Job 2 and Job 3, running them in parallel
+  #   if: ${{ always() }}  # Ensures that job4 runs no matter what happens with job2 and job3
+  #   steps:
+  #     - name: Step 1 in Job 4 - Waiting for 30 seconds
+  #       run: echo "Waiting for 30 seconds..." && sleep 60
+  #     - name: Step 2 in Job 4 - Always Fail
+  #       run: |
+  #         echo "This job is forced to fail."
+  #         exit 1  # Force the job to fail every time
       
   ChangeRequest:
      name: Change Request
      if: always()
-     needs: job4
+     needs: job3
      runs-on: ubuntu-latest
      steps:     
       - name: ServiceNow DevOps Change Attributes
