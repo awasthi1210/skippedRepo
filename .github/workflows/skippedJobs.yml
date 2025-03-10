@@ -140,5 +140,5 @@ jobs:
     if: always() || needs.job11.result == 'skipped'  # Runs even if job11 is skipped
     steps:
       - name: Run conditional step
-        if: ${{ vars.MY_VARIABLE == 'false' }}
+        if: ${{ vars.MY_VARIABLE == 'true' }}
         run: echo "This step runs only if MY_VARIABLE is false"
