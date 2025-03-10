@@ -133,41 +133,14 @@ jobs:
       - name: Step 1 in Job 11
         run: echo "Running Job 11 after job9 and job10"
 
-  # job12:
-  #   name: Job 12
-  #   runs-on: ubuntu-latest
-  #   if: ${{ !cancelled() }}
-  #   needs: job11
-  #   env:
-  #     MY_VARIABLE: false  # Ensure it's set
-  #   steps:
-  #     - name: Debug MY_VARIABLE
-  #       run: echo "MY_VARIABLE is $MY_VARIABLE"
-  #       env:
-          # MY_VARIABLE: ${{ vars.MY_VARIABLE }}
+  job12:
+    name: Job 12
+    runs-on: ubuntu-latest
+    if: always()  # Ensures job runs even if others fail
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-  ChangeRequest:
-     name: Change Request
-     if: always()
-     needs: job11
-     runs-on: ubuntu-latest
-     steps:     
-      - name: ServiceNow DevOps Change Attributes
-        uses: ServiceNow/servicenow-devops-change@dev
-        with:
-          # devops-integration-user-name: ${{ secrets.SN_DEVOPS_USER }}
-          # devops-integration-user-password: ${{ secrets.SN_DEVOPS_PASSWORD }}
-          devops-integration-token: ${{ secrets.SN_DEVOPS_TOKEN }}
-          instance-url: ${{ secrets.SN_INSTANCE_URL }}
-          tool-id: ${{ secrets.SN_ORCHESTRATION_TOOL_ID }}
-          context-github: ${{ toJSON(github) }}
-          job-name: 'Change Request'
-          change-request: '{"autoCloseChange":true,"attributes":{"chg_model": {"name": "Normal" },"short_description":"Automated Software Deployments","description":"Automated Software Deployment.","assignment_group":"a715cd759f2002002920bde8132e7018","implementation_plan":"Software update is tested and results can be found in Test Summaries Tab.","backout_plan":"When software fails in production, the previous software release will be re-deployed.","test_plan":"Testing if the software was successfully deployed."}}'  
-          interval: '100'
-          timeout: '3600'
-          # changeCreationTimeOut: ;'1000'
-          # deployment-gate: '{"environment":"prod","jobName":"Deploy"}'
-
-      # - name: Run conditional step
-      #   if: ${{ vars.MY_VARIABLE == false }} # Ensure it's a string
-      #   run: echo "This step runs only if MY_VARIABLE is false"
+      - name: Run conditional step
+        if: ${{ env.MY_VARIABLE == 'false' }}
+        run: echo "This step runs only if MY_VARIABLE is false"
