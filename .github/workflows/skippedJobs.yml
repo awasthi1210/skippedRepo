@@ -137,8 +137,8 @@ jobs:
     name: Job 12
     runs-on: ubuntu-latest
     needs: job11
-    if: always() || needs.job11.result == 'skipped'  # Runs even if job11 is skipped
+    if: always() || needs.job11.result == 'skipped'  # Ensures job runs even if job11 is skipped
     steps:
       - name: Run conditional step
-        if: ${{ vars.MY_VARIABLE == 'true' }}
-        run: echo "This step runs only if MY_VARIABLE is false"
+        if: ${{ vars.MY_VARIABLE == 'true' }}  # Runs only when MY_VARIABLE is 'true'
+        run: echo "This step runs only if MY_VARIABLE is true"
